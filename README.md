@@ -1,2 +1,2 @@
 # multify-firmware
-Sparkcore firmware reosurces for Multify
+Sparkcore firmware resources for Multify
