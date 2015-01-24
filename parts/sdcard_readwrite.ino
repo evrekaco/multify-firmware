@@ -14,6 +14,13 @@ const uint8_t mosiPin = D3;
 const uint8_t misoPin = D2;
 const uint8_t clockPin = D1;
 
+/*
+const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
+const uint8_t mosiPin = A5;
+const uint8_t misoPin = A4;
+const uint8_t clockPin = A3;
+*/
+
 
 void setup()
 {
