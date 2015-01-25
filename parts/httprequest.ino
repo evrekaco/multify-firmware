@@ -1,0 +1,69 @@
+// This #include statement was automatically added by the Spark IDE.
+#include "HttpClient/HttpClient.h"
+
+#include "application.h"
+
+byte server[] = { 160, 153, 72, 200 };
+int server_state;
+
+/**
+* Declaring the variables.
+*/
+unsigned int nextTime = 0;    // Next time to contact the server
+HttpClient http;
+
+// Headers currently need to be set at init, useful for API keys etc.
+http_header_t headers[] = {
+    //  { "Content-Type", "application/json" },
+    //  { "Accept" , "application/json" },
+    { "Accept" , "*/*"},
+    { NULL, NULL } // NOTE: Always terminate headers will NULL
+};
+
+http_request_t request;
+http_response_t response;
+
+void setup() {
+    Serial.begin(9600);
+}
+
+void loop() {
+    Server_Check();
+}
+
+
+void Server_Check(){
+    if (nextTime > millis()) {
+        return;
+    }
+
+    Serial.println();
+    Serial.println("Application>\tStart of Loop.");
+    // Request path and body can be set at runtime or at setup.
+    request.hostname = "multify.co";
+    request.ip=server;
+    request.port = 80;
+    request.path = "/adminMultify/webservice.php?method=foursquare&device_id=1&format=html";
+
+    // The library also supports sending a body with your request:
+    //request.body = "{\"key\":\"value\"}";
+    
+    // Get request
+    http.get(request, response);
+
+//    Serial.print("Application>\tResponse status: ");
+    Serial.println(response.status);
+
+//    Serial.print("Application>\tHTTP Response Body: ");
+    Serial.println(response.body);
+// This #include statement was automatically added by the Spark IDE.
+
+
+    //string str = response.body;
+    server_state = atoi(response.body.c_str());
+    
+    Serial.print("State is: ");
+    Serial.println(server_state);
+    nextTime = millis() + 3000;    
+    
+}
