@@ -13,12 +13,14 @@ int turn=0;
 
 File ssid;
 File state;
+
+// SOFTWARE SPI pin configuration - modify as required
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
 const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
 
-byte server[] = { 160, 153, 72, 200 };
+byte server[] = { 160, 153, 72, 200 }; //multify server ip address
 
 /**
 * Declaring the variables.
@@ -42,15 +44,16 @@ http_response_t response;
 */
 int stp=0, e1=1, e2=2, e3=3, e4=4, e5=5, e6=6;
 
+//'Fix Me' Function
 int Change_state(String command);
-
 
 //--------------------------------------------    SETUP BEGINS    --------------------------------------------
 void setup() {
+    //'Fix Me' Initialization
     Spark.function("Changer", Change_state);
     Serial.begin(9600);
+    //SD card Initialization
     SD.begin(chipSelect);
-    
     //Motor pin assignment
     pinMode(stp,OUTPUT);
     pinMode(e1,OUTPUT);
@@ -58,21 +61,21 @@ void setup() {
     pinMode(e3,OUTPUT);
     pinMode(e4,OUTPUT);
     pinMode(e5,OUTPUT);
-    pinMode(e6,OUTPUT);    
-    
+    pinMode(e6,OUTPUT); 
     //LEDS for DEBUG
     pinMode(D7,OUTPUT);
     pinMode(A6,OUTPUT);
     digitalWrite(A6,HIGH);
-    
+    //Initially stop all motors
     Stop_motors();
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
 
 //--------------------------------------------    LOOP BEGINS    --------------------------------------------
 void loop() {
-    
+    //First check hard_state
     SD_read();
+    //Second check check-in count (sever_state)
     Server_Check();
     delay(500);
     
@@ -96,11 +99,13 @@ void loop() {
     //Turn the motors after a check-in received
     Serial.println("----------TURN MOTORS!!");
     Equalizer(hard_state,server_state);
+    //Update the SD Card
     SD_write(hard_state);
 }
 //--------------------------------------------    LOOP ENDS    --------------------------------------------
 
 //--------------------------------------------    SERVER_CHECK BEGINS    --------------------------------------------
+//Checks the server for a check-in
 void Server_Check(){
     if (nextTime > millis()) {
         return;
@@ -147,43 +152,50 @@ void Server_Check(){
 
 
 //--------------------------------------------    SD_READ BEGINS    --------------------------------------------
+//Gets the counter state from sdcard
 void SD_read(){
-        state = SD.open("state.txt");
-        for(int i=0;i<6;i++)
-        {
-            hard_state_read[i] = state.read();
-        }
-        state.close();
-        
-        hard_state=atoi(hard_state_read);
-        Serial.print("sd card değeri: ");
-        Serial.println(hard_state);
+    //open state file
+    state = SD.open("state.txt");
+    //read the file and keep it in state_read string
+    for(int i=0;i<6;i++)
+    {
+        hard_state_read[i] = state.read();
+    }
+    //close the file
+    state.close();
+    //set the hard_state
+    hard_state=atoi(hard_state_read);
+    Serial.print("sd card değeri: ");
+    Serial.println(hard_state);
 }
 //--------------------------------------------    SD_READ ENDS    --------------------------------------------
 
 
 //--------------------------------------------    SD_WRITE BEGINS    --------------------------------------------
+//Writes the counter state to sdcard
 void SD_write(int cnt){
-        SD.remove("state.txt");
-        state = SD.open("state.txt", FILE_WRITE);
-      
-      // if the file opened okay, write to it:
-      if (state) {
+    //to overwrite the state file first remove it
+    SD.remove("state.txt");
+    state = SD.open("state.txt", FILE_WRITE);
+    // if the file opened okay, write to it:
+    if (state) {
         Serial.print("Writing to state.txt:  ");
         Serial.println(cnt);
         state.print(cnt);
       // close the file:
         state.close();
         Serial.println("done.");
-      } else {
+    } 
+    else {
         // if the file didn't open, print an error:
         Serial.println("error opening state.txt");
-      }
+    }
 }
 //--------------------------------------------    SD_WRITE ENDS    --------------------------------------------
 
 
 //--------------------------------------------    CHANGE_STATE BEGINS    --------------------------------------------
+//Changes the hard_state when data received from 'Fix My Multify' part
 int Change_state(String command)
 {
     Serial.println("-----------NEW STATE RECEIVED!!");
@@ -196,15 +208,16 @@ int Change_state(String command)
 
 
 //--------------------------------------------    MOVE_MOTOR BEGINS    --------------------------------------------
+//Selects a motor and moves it
 void Move_motor(int motor, int stepnumber){
     switch(motor){
         case 1 :
             digitalWrite(e1,LOW);
             for(int j=0; j<stepnumber; j++){
-                digitalWrite(stp,HIGH);
-                delayMicroseconds(1000);
+                digitalWrite(stp,HIGH); //According to the motor number sets the relative pins to HIGH or LOW
+                delayMicroseconds(1000); // Motor speed can be set via these lines
                 digitalWrite(stp,LOW);
-                delayMicroseconds(1000);
+                delayMicroseconds(1000); // Motor speed can be set via these lines
             }
         break;
         case 2 :    
@@ -259,6 +272,7 @@ void Move_motor(int motor, int stepnumber){
 
 
 //--------------------------------------------    STOP_MOTOR BEGINS    --------------------------------------------
+//Stops selected motor
 void Stop_motor(int motor){
     digitalWrite(stp,LOW);
     switch(motor){
@@ -288,8 +302,8 @@ void Stop_motor(int motor){
 //--------------------------------------------    STOP_MOTOR ENDS    --------------------------------------------
 
 
-
 //--------------------------------------------    STOP_MOTORS BEGINS    --------------------------------------------
+//Stops All Motors
 void Stop_motors(){
     digitalWrite(stp,LOW);
     digitalWrite(e1,HIGH);
@@ -304,6 +318,8 @@ void Stop_motors(){
 
 
 //--------------------------------------------    EQUALIZER BEGINS    --------------------------------------------
+//  Evaluates and parses the difference of hard and server states
+//  Turns the motors to equalize both states
 void Equalizer(int hrd_st, int srv_st){
     //Find the difference
     int difference = srv_st - hrd_st;
@@ -320,7 +336,6 @@ void Equalizer(int hrd_st, int srv_st){
         Serial.print("   ");
     }
     Serial.println("");
-    
     
     //turn each motor for the amount of corresponding digit_turn value
     for(int j=0; j<6; j++){
