@@ -8,22 +8,13 @@ char hard_state_read[6];
 long int hard_state=0;
 File state;
 
-/*
-const uint8_t chipSelect = D0;    // Also used for HARDWARE SPI setup
-const uint8_t mosiPin = D3;
-const uint8_t misoPin = D2;
-const uint8_t clockPin = D1;
-*/
-
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
 const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
 
-
-
 byte server[] = { 160, 153, 72, 200 };
-int server_state;
+int server_state=0;
 /**
 * Declaring the variables.
 */
@@ -48,15 +39,28 @@ void setup() {
     Spark.function("Changer", Change_state);
     Serial.begin(9600);
     SD.begin(chipSelect);
-//    SD.begin(mosiPin, misoPin, clockPin, chipSelect);
-    pinMode(A7,INPUT);
+    
+    //LEDS for DEBUG
     pinMode(D7,OUTPUT);
     pinMode(D6,OUTPUT);
     digitalWrite(D6,HIGH);
 }
 
 void loop() {
+    
     SD_read();
+    Server_Check();
+    delay(500);
+    
+    //Wait for a succesfull http response
+    while(server_state==0){
+        digitalWrite(D6,LOW);
+        Server_Check();
+        digitalWrite(D6,HIGH);
+        delay(500);
+    }
+    
+    //After a successive http response compare the server and hard states
     while(hard_state==server_state)
     {
         digitalWrite(D6,LOW);
@@ -65,6 +69,7 @@ void loop() {
         delay(500);
     }
     
+    //Turn the motors after a check-in received
     Serial.println("----------TURN MOTORS!!");
     SD_write(server_state);
 }
@@ -90,18 +95,20 @@ void Server_Check(){
     http.get(request, response);
 
 //    Serial.print("Application>\tResponse status: ");
-    Serial.println(response.status);
+//    Serial.println(response.status);
 
 //    Serial.print("Application>\tHTTP Response Body: ");
-    Serial.println(response.body);
+//    Serial.println(response.body);
 // This #include statement was automatically added by the Spark IDE.
-
 
     //string str = response.body;
     server_state = atoi(response.body.c_str());
     
     Serial.print("State is: ");
     Serial.println(server_state);
+    
+    Serial.print("Hard State is: ");
+    Serial.println(hard_state);
     nextTime = millis() + 1000;  
     
     //Check the response
