@@ -4,63 +4,52 @@
 #include "application.h"
 #include "math.h"
 
-
 long int hard_state=0;
 int server_state=0;
 int one_turn=10;
 char hard_state_read[6];
 int digit_turn[6]={0,0,0,0,0,0};
+int turn=0;
 
 File ssid;
 File state;
-
-//SD card pin configurations
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
 const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
 
-
-//multify.co ip address
 byte server[] = { 160, 153, 72, 200 };
 
-
 /**
-* Declaring the HTTP Request variables.
+* Declaring the variables.
 */
 unsigned int nextTime = 0;    // Next time to contact the server
 HttpClient http;
+
 // Headers currently need to be set at init, useful for API keys etc.
 http_header_t headers[] = {
+    //  { "Content-Type", "application/json" },
+    //  { "Accept" , "application/json" },
     { "Accept" , "*/*"},
     { NULL, NULL } // NOTE: Always terminate headers will NULL
 };
+
 http_request_t request;
 http_response_t response;
-
 
 /*
     MOTOR PIN CONFIGURATIONS
 */
 int stp=0, e1=1, e2=2, e3=3, e4=4, e5=5, e6=6;
 
-//Changer function definiton
 int Change_state(String command);
-
 
 
 //--------------------------------------------    SETUP BEGINS    --------------------------------------------
 void setup() {
-    //Changer function definition
     Spark.function("Changer", Change_state);
-    
     Serial.begin(9600);
-    
-    //SD card initialization
     SD.begin(chipSelect);
-    
-    //Extra button
-    pinMode(A7,INPUT);
     
     //Motor pin assignment
     pinMode(stp,OUTPUT);
@@ -69,21 +58,33 @@ void setup() {
     pinMode(e3,OUTPUT);
     pinMode(e4,OUTPUT);
     pinMode(e5,OUTPUT);
-    pinMode(e6,OUTPUT);
+    pinMode(e6,OUTPUT);    
     
-    //led pin assignments
-    pinMode(A6,OUTPUT);
+    //LEDS for DEBUG
     pinMode(D7,OUTPUT);
+    pinMode(A6,OUTPUT);
     digitalWrite(A6,HIGH);
     
     Stop_motors();
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
 
-
 //--------------------------------------------    LOOP BEGINS    --------------------------------------------
 void loop() {
+    
     SD_read();
+    Server_Check();
+    delay(500);
+    
+    //Wait for a succesfull http response
+    while(server_state==0){
+        digitalWrite(A6,LOW);
+        Server_Check();
+        digitalWrite(A6,HIGH);
+        delay(500);
+    }
+    
+    //After a successive http response compare the server and hard states
     while(hard_state==server_state)
     {
         digitalWrite(A6,LOW);
@@ -92,14 +93,12 @@ void loop() {
         delay(500);
     }
     
+    //Turn the motors after a check-in received
     Serial.println("----------TURN MOTORS!!");
     Equalizer(hard_state,server_state);
     SD_write(hard_state);
 }
 //--------------------------------------------    LOOP ENDS    --------------------------------------------
-
-
-
 
 //--------------------------------------------    SERVER_CHECK BEGINS    --------------------------------------------
 void Server_Check(){
@@ -282,6 +281,9 @@ void Stop_motor(int motor){
             digitalWrite(e6,HIGH);
         break;
     }
+    //DEBUG
+    Serial.print(motor);
+    Serial.println("th Motor has been stopped!");
 }
 //--------------------------------------------    STOP_MOTOR ENDS    --------------------------------------------
 
@@ -296,10 +298,12 @@ void Stop_motors(){
     digitalWrite(e4,HIGH);
     digitalWrite(e5,HIGH);
     digitalWrite(e6,HIGH);
+    Serial.println("ALL MOTORS HAVE BEEN STOPPED!");
 }
 //--------------------------------------------    STOP_MOTORS ENDS    --------------------------------------------
 
 
+//--------------------------------------------    EQUALIZER BEGINS    --------------------------------------------
 void Equalizer(int hrd_st, int srv_st){
     //Find the difference
     int difference = srv_st - hrd_st;
@@ -309,9 +313,24 @@ void Equalizer(int hrd_st, int srv_st){
         difference=difference/10;
     }
     
+    //DEBUG
+    Serial.print("Digit Turns:");
+    for(int a=0;a<6;a++){
+        Serial.print(digit_turn[a]);
+        Serial.print("   ");
+    }
+    Serial.println("");
+    
+    
     //turn each motor for the amount of corresponding digit_turn value
     for(int j=0; j<6; j++){
-        int turn=digit_turn[j];
+        turn=digit_turn[j];
+        
+        //DEBUG
+        Serial.print(j);
+        Serial.print("th Motor will turn by ");
+        Serial.println(turn);
+        
         for(turn; turn>0; turn--){
             //One turn for motor j^th
             Move_motor(j,one_turn);
@@ -321,8 +340,23 @@ void Equalizer(int hrd_st, int srv_st){
             hard_state=hard_state+pow(10,j);
         }
     }
+    
+    //DEBUG
+    Serial.print("New Hard State: ");
+    Serial.println(hard_state);
     //Set the digit_turn array to 0 after all motors has turned
     for(int k=0;k<6;k++){
         digit_turn[k]=0;
     }
+    
+    //DEBUG
+    Serial.print("0 Digit Turns:");
+    for(int a=0;a<6;a++){
+        Serial.print(digit_turn[a]);
+        Serial.print("   ");
+    }
+    Serial.println("");
 }
+//--------------------------------------------    EQUALIZER ENDS    --------------------------------------------
+
+//--------------------------------------------    MULTIFY ENDS    --------------------------------------------
