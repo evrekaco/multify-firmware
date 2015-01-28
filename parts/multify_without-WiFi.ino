@@ -1,12 +1,11 @@
-// This #include statement was automatically added by the Spark IDE.
-#include "HttpClient/HttpClient.h"
 #include "sd-card-library/sd-card-library.h"
+#include "HttpClient/HttpClient.h"
 #include "application.h"
 #include "math.h"
 
 long int hard_state=0;
 int server_state=0;
-int one_turn=10;
+int one_turn=200;
 char hard_state_read[6];
 int digit_turn[6]={0,0,0,0,0,0};
 int turn=0;
@@ -65,6 +64,7 @@ void setup() {
     //LEDS for DEBUG
     pinMode(D7,OUTPUT);
     pinMode(A6,OUTPUT);
+    pinMode(A7,OUTPUT);
     digitalWrite(A6,HIGH);
     //Initially stop all motors
     Stop_motors();
@@ -117,7 +117,7 @@ void Server_Check(){
     request.hostname = "multify.co";
     request.ip=server;
     request.port = 80;
-    request.path = "/adminMultify/webservice.php?method=foursquare&device_id=1&format=html";
+    request.path = "/adminMultify/webservice.php?method=foursquare&device_id=54ff6d066667515128572567&format=html"; //Spark No: 2
 
     // The library also supports sending a body with your request:
     //request.body = "{\"key\":\"value\"}";
@@ -210,6 +210,10 @@ int Change_state(String command)
 //--------------------------------------------    MOVE_MOTOR BEGINS    --------------------------------------------
 //Selects a motor and moves it
 void Move_motor(int motor, int stepnumber){
+    Serial.print("Moving Motor: ");
+    Serial.println(motor);
+    delay(50);
+    digitalWrite(A7,HIGH);
     switch(motor){
         case 1 :
             digitalWrite(e1,LOW);
@@ -266,6 +270,8 @@ void Move_motor(int motor, int stepnumber){
             }
         break;
     }
+    digitalWrite(A7,LOW);
+    delay(200);
 }
 //--------------------------------------------    MOVE_MOTOR ENDS    --------------------------------------------
 
@@ -342,14 +348,14 @@ void Equalizer(int hrd_st, int srv_st){
         turn=digit_turn[j];
         
         //DEBUG
-        Serial.print(j);
+        Serial.print(j+1);
         Serial.print("th Motor will turn by ");
         Serial.println(turn);
         
         for(turn; turn>0; turn--){
             //One turn for motor j^th
-            Move_motor(j,one_turn);
-            Stop_motor(j);
+            Move_motor(j+1,one_turn);
+            Stop_motor(j+1);
             //Increase hard_state according to the motor index
             //For ex: for the 3^th motor(j=2) increase hard_state by 100=(10^2) for each turn
             hard_state=hard_state+pow(10,j);
