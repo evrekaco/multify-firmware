@@ -3,6 +3,26 @@
 #include "sd-card-library/sd-card-library.h"
 #include "application.h"
 
+
+char hard_state_read[6];
+long int hard_state=0;
+File state;
+
+/*
+const uint8_t chipSelect = D0;    // Also used for HARDWARE SPI setup
+const uint8_t mosiPin = D3;
+const uint8_t misoPin = D2;
+const uint8_t clockPin = D1;
+*/
+
+
+const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
+const uint8_t mosiPin = A5;
+const uint8_t misoPin = A4;
+const uint8_t clockPin = A3;
+
+
+
 byte server[] = { 160, 153, 72, 200 };
 int server_state;
 /**
@@ -23,32 +43,25 @@ http_request_t request;
 http_response_t response;
 
 
-char hard_state_read[6];
-long int hard_state=0;
-File state;
-
-const uint8_t chipSelect = D0;    // Also used for HARDWARE SPI setup
-const uint8_t mosiPin = D3;
-const uint8_t misoPin = D2;
-const uint8_t clockPin = D1;
-
-
-
 void setup() {
 
     Serial.begin(9600);
-    SD.begin(mosiPin, misoPin, clockPin, chipSelect);
+    SD.begin(chipSelect);
+//    SD.begin(mosiPin, misoPin, clockPin, chipSelect);
     pinMode(A7,INPUT);
+    pinMode(D7,OUTPUT);
     pinMode(D6,OUTPUT);
+    digitalWrite(D6,HIGH);
 }
 
 void loop() {
     SD_read();
     while(hard_state==server_state)
     {
-        digitalWrite(D6,HIGH);
-        Server_Check();
         digitalWrite(D6,LOW);
+        Server_Check();
+        digitalWrite(D6,HIGH);
+        delay(500);
     }
     SD_write(server_state);
 }
@@ -58,7 +71,7 @@ void Server_Check(){
     if (nextTime > millis()) {
         return;
     }
-
+    
     Serial.println();
     Serial.println("Application>\tStart of Loop.");
     // Request path and body can be set at runtime or at setup.
@@ -86,8 +99,15 @@ void Server_Check(){
     
     Serial.print("State is: ");
     Serial.println(server_state);
-    nextTime = millis() + 3000;    
+    nextTime = millis() + 1000;  
     
+    //Check the response
+    if(server_state>0)
+    {
+        digitalWrite(D7,HIGH);
+        delay(500);
+        digitalWrite(D7,LOW);
+    }
 }
 
 

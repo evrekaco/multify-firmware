@@ -7,19 +7,20 @@ char hard_state_read[6];
 long int hard_state=0;
 File state;
 
+/*
 // SOFTWARE SPI pin configuration - modify as required
 // The default pins are the same as HARDWARE SPI
 const uint8_t chipSelect = D0;    // Also used for HARDWARE SPI setup
 const uint8_t mosiPin = D3;
 const uint8_t misoPin = D2;
 const uint8_t clockPin = D1;
+*/
 
-/*
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
 const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
-*/
+
 
 
 void setup()
@@ -27,10 +28,10 @@ void setup()
   Serial.begin(9600);
   
   //HARDWARE SPI
-  //SD.begin(chipSelect);
+  SD.begin(chipSelect);
   
   //SOFTWARE SPI
-  SD.begin(mosiPin, misoPin, clockPin, chipSelect);
+  //SD.begin(mosiPin, misoPin, clockPin, chipSelect);
 }
 
 
