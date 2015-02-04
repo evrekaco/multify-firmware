@@ -4,6 +4,9 @@
 #include "application.h"
 #include "math.h"
 
+SYSTEM_MODE(SEMI_AUTOMATIC);
+int initial=1;
+
 int one_turn=20;
 int speed=1000;
 
@@ -54,11 +57,6 @@ int Change_state(String command);
 
 //--------------------------------------------    SETUP BEGINS    --------------------------------------------
 void setup() {
-    //'Fix Me' Initialization
-    Spark.function("Changer", Change_state);
-    Serial.begin(9600);
-    //SD card Initialization
-    SD.begin(chipSelect);
     //Motor pin assignment
     pinMode(stp,OUTPUT);
     pinMode(e1,OUTPUT);
@@ -67,17 +65,28 @@ void setup() {
     pinMode(e4,OUTPUT);
     pinMode(e5,OUTPUT);
     pinMode(e6,OUTPUT); 
+    //Initially stop all motors
+    Stop_motors();
+    
     //LEDS for DEBUG
     pinMode(D7,OUTPUT);
     pinMode(A6,OUTPUT);
     digitalWrite(D7,HIGH);
-    //Initially stop all motors
-    Stop_motors();
+    
+    //'Fix Me' Initialization
+    Spark.function("Changer", Change_state);
+    Serial.begin(9600);
+    //SD card Initialization
+    SD.begin(chipSelect);
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
 
 //--------------------------------------------    LOOP BEGINS    --------------------------------------------
 void loop() {
+    if(initial==1){
+        Spark.connect();
+        initial=0;
+    }
     //First check hard_state
     SD_read();
     //Second check check-in count (sever_state)
