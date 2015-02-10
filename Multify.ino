@@ -71,7 +71,7 @@ void setup() {
     //LEDS for DEBUG
     pinMode(D7,OUTPUT);
     pinMode(A6,OUTPUT);
-    digitalWrite(D7,HIGH);
+    digitalWrite(A6,HIGH);
     
     //'Fix Me' Initialization
     Spark.function("Changer", Change_state);
@@ -95,9 +95,9 @@ void loop() {
     
     //Wait for a succesfull http response
     while(server_state==0){
-        digitalWrite(D7,LOW);
+        digitalWrite(A6,LOW);
         Server_Check();
-        digitalWrite(D7,HIGH);
+        digitalWrite(A6,HIGH);
         delay(100);
     }
     
@@ -105,9 +105,9 @@ void loop() {
     //After a successive http response compare the server and hard states
     while(hard_state==server_state)
     {
-        digitalWrite(D7,LOW);
+        digitalWrite(A6,LOW);
         Server_Check();
-        digitalWrite(D7,HIGH);
+        digitalWrite(A6,HIGH);
         delay(100);
     }
     
@@ -396,14 +396,14 @@ void Equalizer(int hrd_st, int srv_st){
             hard_state=hard_state + turn*pow(10,j-1);
             
             //EXTRA TURN
-            if(digit_turn[6-j] + hard_state_int[6-j] > 9){
+            if(digit_turn[6-j] > hard_state_int[6-j] ){
                 Serial.println("Ekstra move for next motor!");
                 Move_motor(j+1,one_turn*11);
                 Stop_motor(j+1);
 
                 //EXTRA LOOK FOR EXTRA TURN
                 for(int k=0; k<digit-j; k++){
-                    if(hard_state_int[5-j-k]==9){
+                    if(hard_state_int[5-j-k]==0){
                         Move_motor(j+k+2,one_turn);
                         Stop_motor(j+k+2);
                     }
