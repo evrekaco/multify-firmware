@@ -11,7 +11,7 @@ int one_turn=20;
 int speed=1000;
 
 long int hard_state=0;
-int hard_state_inv[6]={0,0,0,0,0,0};
+int hard_state_int[6]={0,0,0,0,0,0};
 char hard_state_read[6]={0,0,0,0,0,0};
 int server_state=0;
 
@@ -166,9 +166,9 @@ void Server_Check(){
     */
         
     
-    Serial.print("Hard_state_inv: ");
+    Serial.print("Hard_state_int: ");
     for(int i=0; i<6; i++){
-        Serial.print(hard_state_inv[i]);
+        Serial.print(hard_state_int[i]);
         Serial.print("  ");
     }
     Serial.println(" ");
@@ -186,10 +186,9 @@ void SD_read(){
     digit=state.size();
     
     //read the file and keep it in state_read string
-    for(int i=0;i<digit;i++)
+    for(int i=0;i<6;i++)
     {
       hard_state_read[i] = state.read();
-      //Hard_state inverse array creation
     }
     
     //close the file
@@ -200,11 +199,11 @@ void SD_read(){
     Serial.println(hard_state);
     
     for(int i=0; i<(6-digit); i++){
-        hard_state_inv[i]=9;
+        hard_state_int[i] = 0;
     }
     
     for(int i=0; i<digit; i++){
-        hard_state_inv[6-digit+i]= 9 - (hard_state_read[i] - '0');
+        hard_state_int[6-digit+i] = (hard_state_read[i] - '0');
     }    
 }
 //--------------------------------------------    SD_READ ENDS    --------------------------------------------
@@ -380,37 +379,68 @@ void Equalizer(int hrd_st, int srv_st){
     for(int j=1; j<7; j++){
         turn=digit_turn[6-j];
 
-        //DEBUG
-        Serial.print(j);
-        Serial.print("th Motor will turn by ");
-        Serial.println(turn);
-        
+        //POSITIVE TURN
         if(turn>0){
+            //DEBUG
+            Serial.print(j);
+            Serial.print("th Motor will turn by ");
+            Serial.println(turn);
+            
             Move_motor(j,one_turn*10);
-        }
-        
-        for(turn; turn>0; turn--){
-            //One turn for motor j^th
-            Move_motor(j,one_turn);
+            
+            //CLASSICAL TURN
+            Move_motor(j,turn*one_turn);
             Stop_motor(j);
             //Increase hard_state according to the motor index
             //For ex: for the 3^th motor(j=2) increase hard_state by 100=(10^2) for each turn
-            hard_state=hard_state+pow(10,j-1);
+            hard_state=hard_state + turn*pow(10,j-1);
+            
+            //EXTRA TURN
+            if(digit_turn[6-j] + hard_state_int[6-j] > 9){
+                Serial.println("Ekstra move for next motor!");
+                Move_motor(j+1,one_turn*11);
+                Stop_motor(j+1);
+
+                //EXTRA LOOK FOR EXTRA TURN
+                for(int k=0; k<digit-j; k++){
+                    if(hard_state_int[5-j-k]==9){
+                        Move_motor(j+k+2,one_turn);
+                        Stop_motor(j+k+2);
+                    }
+                }
+            }
         }
-        
-        if(digit_turn[6-j]>hard_state_inv[6-j]){
-            Serial.println("Ekstra move for next motor!");
-            Move_motor(j+1,one_turn*11);
-            Stop_motor(j+1);
+
+        //NEGATIVE TURN
+        else if(turn<0){
+            Serial.println("NEGATIVE TURN!!");
+            turn = turn + 10;
+
+            Serial.print(j);
+            Serial.print("th Motor will turn by ");
+            Serial.println(turn);
+
+            //CLASSICAL TURN
+            Move_motor(j,turn*one_turn);
+            Stop_motor(j);
+            hard_state = hard_state + digit_turn[6-j]*pow(10,j-1);
+
+            //EXTRA TURN
+            if(hard_state_int[6-j] - digit_turn[6-j] > 9){
+                Move_motor(j+1,9*one_turn);
+                Stop_motor(j+1);
+
+                //EXTRA LOOK FOR EXTRA TURN
+                for(int k=0; k<digit-j; k++){
+                    if(hard_state_int[5-j-k] - digit_turn[5-j-k]==9){
+                        Move_motor(j+2+k,9*one_turn);
+                        Stop_motor(j+2+k);
+                    }
+                    else
+                        break;
+                }
+            }
         }
-    }
-    
-    //DEBUG
-    Serial.print("New Hard State: ");
-    Serial.println(hard_state);
-    //Set the digit_turn array to 0 after all motors has turned
-    for(int k=0;k<6;k++){
-        digit_turn[k]=0;
     }
 }
 //--------------------------------------------    EQUALIZER ENDS    --------------------------------------------
