@@ -19,14 +19,20 @@ int digit_turn[6]={0,0,0,0,0,0};
 int turn=0;
 int digit=0;
 
-File ssid;
+File myFile;
 File state;
+
+int i = 0;
+int run = 1;
+char name[64];
+char pass[64];
+
 
 // SOFTWARE SPI pin configuration - modify as required
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
-const uint8_t mosiPin = A5;
-const uint8_t misoPin = A4;
-const uint8_t clockPin = A3;
+//const uint8_t mosiPin = A5;
+//const uint8_t misoPin = A4;
+//const uint8_t clockPin = A3;
 
 byte server[] = { 160, 153, 72, 200 }; //multify server ip address
 
@@ -57,6 +63,13 @@ int Change_state(String command);
 
 //--------------------------------------------    SETUP BEGINS    --------------------------------------------
 void setup() {
+    if (!SD.begin(chipSelect)) 
+    {
+        Serial.println("initialization failed!");
+    }
+    
+    WiFi_sd();
+    
     //Motor pin assignment
     pinMode(stp,OUTPUT);
     pinMode(e1,OUTPUT);
@@ -76,17 +89,11 @@ void setup() {
     //'Fix Me' Initialization
     Spark.function("Changer", Change_state);
     Serial.begin(9600);
-    //SD card Initialization
-    SD.begin(chipSelect);
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
 
 //--------------------------------------------    LOOP BEGINS    --------------------------------------------
 void loop() {
-    if(initial==1){
-        Spark.connect();
-        initial=0;
-    }
     //First check hard_state
     SD_read();
     //Second check check-in count (sever_state)
@@ -118,6 +125,58 @@ void loop() {
     SD_write(hard_state);
 }
 //--------------------------------------------    LOOP ENDS    --------------------------------------------
+
+//--------------------------------------------    WIFI_SD BEGINS    --------------------------------------------
+void WiFi_sd(){
+    myFile = SD.open("ssid.txt");
+    
+    i = 0;
+    run = 1;
+    while(run)
+    {
+        char ch = myFile.read();
+        if(ch == ',')
+        {
+            run = 0;
+            name[i] = '\0';
+        }
+        else
+        {
+            name[i] = ch;
+        }
+        i++;
+    }
+    
+    i = 0;
+    run = 1;
+    while(run)
+    {
+        char ch = myFile.read();
+        if(ch == ',')
+        {
+            run = 0;
+            pass[i] = '\0';
+        }
+        else
+        {
+            pass[i] = ch;
+        }
+        i++;
+    }
+    
+    myFile.close();
+
+    //digitalWrite(A0,HIGH);
+    
+    WiFi.on();
+    WiFi.setCredentials(name,pass);
+    Spark.connect();
+    
+    //digitalWrite(A0,LOW);    
+}
+//--------------------------------------------    WIFI_SD ENDS    --------------------------------------------
+
+
 
 //--------------------------------------------    SERVER_CHECK BEGINS    --------------------------------------------
 //Checks the server for a check-in
@@ -172,6 +231,8 @@ void Server_Check(){
         Serial.print("  ");
     }
     Serial.println(" ");
+    Serial.println(WiFi.SSID());
+    Serial.println(name);
 }
 //--------------------------------------------    SERVER_CHECK ENDS    --------------------------------------------
 
