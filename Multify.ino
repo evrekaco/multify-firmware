@@ -27,12 +27,11 @@ int run = 1;
 char name[64];
 char pass[64];
 
-
 // SOFTWARE SPI pin configuration - modify as required
 const uint8_t chipSelect = A2;    // Also used for HARDWARE SPI setup
-//const uint8_t mosiPin = A5;
-//const uint8_t misoPin = A4;
-//const uint8_t clockPin = A3;
+const uint8_t mosiPin = A5;
+const uint8_t misoPin = A4;
+const uint8_t clockPin = A3;
 
 byte server[] = { 160, 153, 72, 200 }; //multify server ip address
 
@@ -52,7 +51,7 @@ http_header_t headers[] = {
 
 http_request_t request;
 http_response_t response;
-
+String myID = Spark.deviceID();
 /*
     MOTOR PIN CONFIGURATIONS
 */
@@ -63,13 +62,6 @@ int Change_state(String command);
 
 //--------------------------------------------    SETUP BEGINS    --------------------------------------------
 void setup() {
-    if (!SD.begin(chipSelect)) 
-    {
-        Serial.println("initialization failed!");
-    }
-    
-    WiFi_sd();
-    
     //Motor pin assignment
     pinMode(stp,OUTPUT);
     pinMode(e1,OUTPUT);
@@ -85,15 +77,25 @@ void setup() {
     pinMode(D7,OUTPUT);
     pinMode(A6,OUTPUT);
     digitalWrite(A6,HIGH);
-    
+    delay(300);
+    digitalWrite(A6,LOW);
     //'Fix Me' Initialization
     Spark.function("Changer", Change_state);
     Serial.begin(9600);
+    //SD card Initialization
+    SD.begin(chipSelect);
+    delay(100);
+    WiFi_sd();
+    digitalWrite(A6,HIGH);    
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
 
 //--------------------------------------------    LOOP BEGINS    --------------------------------------------
 void loop() {
+    if(initial==1){
+        Spark.connect();
+        initial=0;
+    }
     //First check hard_state
     SD_read();
     //Second check check-in count (sever_state)
@@ -176,8 +178,6 @@ void WiFi_sd(){
 }
 //--------------------------------------------    WIFI_SD ENDS    --------------------------------------------
 
-
-
 //--------------------------------------------    SERVER_CHECK BEGINS    --------------------------------------------
 //Checks the server for a check-in
 void Server_Check(){
@@ -191,7 +191,7 @@ void Server_Check(){
     request.hostname = "multify.co";
     request.ip=server;
     request.port = 80;
-    request.path = "/adminMultify/webservice.php?method=foursquare&device_id=54ff74066678574917170667&format=html"; //Spark No: 2
+    request.path = "/adminMultify/webservice.php?method=foursquare&device_id="+myID+"&format=html"; //Spark No: 2
 
     // The library also supports sending a body with your request:
     //request.body = "{\"key\":\"value\"}";
@@ -231,8 +231,6 @@ void Server_Check(){
         Serial.print("  ");
     }
     Serial.println(" ");
-    Serial.println(WiFi.SSID());
-    Serial.println(name);
 }
 //--------------------------------------------    SERVER_CHECK ENDS    --------------------------------------------
 
@@ -447,27 +445,31 @@ void Equalizer(int hrd_st, int srv_st){
             Serial.print("th Motor will turn by ");
             Serial.println(turn);
             
-            Move_motor(j,one_turn*10);
+            //Move_motor(j,one_turn*10);
             
             //CLASSICAL TURN
-            Move_motor(j,turn*one_turn);
-            Stop_motor(j);
+            for(turn;turn>0;turn--){
+                Move_motor(j,one_turn);
+                Stop_motor(j);
+            }
             //Increase hard_state according to the motor index
             //For ex: for the 3^th motor(j=2) increase hard_state by 100=(10^2) for each turn
-            hard_state=hard_state + turn*pow(10,j-1);
+            hard_state=hard_state + digit_turn[6-j]*pow(10,j-1);
             
             //EXTRA TURN
-            if(digit_turn[6-j] > hard_state_int[6-j] ){
+            if(digit_turn[6-j] + hard_state_int[6-j] > 9){
                 Serial.println("Ekstra move for next motor!");
-                Move_motor(j+1,one_turn*11);
+                Move_motor(j+1,one_turn);
                 Stop_motor(j+1);
 
                 //EXTRA LOOK FOR EXTRA TURN
                 for(int k=0; k<digit-j; k++){
-                    if(hard_state_int[5-j-k]==0){
+                    if(hard_state_int[5-j-k]==9){
                         Move_motor(j+k+2,one_turn);
                         Stop_motor(j+k+2);
                     }
+                    else
+                        break;                    
                 }
             }
         }
@@ -482,8 +484,10 @@ void Equalizer(int hrd_st, int srv_st){
             Serial.println(turn);
 
             //CLASSICAL TURN
-            Move_motor(j,turn*one_turn);
-            Stop_motor(j);
+            for(turn;turn>0;turn--){
+                Move_motor(j,one_turn);
+                Stop_motor(j);
+            }
             hard_state = hard_state + digit_turn[6-j]*pow(10,j-1);
 
             //EXTRA TURN
