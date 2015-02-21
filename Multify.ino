@@ -1,3 +1,7 @@
+// WiFi credentials added
+// Auto Device ID added
+// Positive turn tested
+
 // This #include statement was automatically added by the Spark IDE.
 #include "sd-card-library/sd-card-library.h"
 #include "HttpClient/HttpClient.h"
@@ -5,7 +9,7 @@
 #include "math.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
-int initial=1;
+int initial=0;
 
 int one_turn=20;
 int speed=1000;
@@ -85,7 +89,9 @@ void setup() {
     //SD card Initialization
     SD.begin(chipSelect);
     delay(100);
-    WiFi_sd();
+    if(initial==0){
+        WiFi_sd();
+    }
     digitalWrite(A6,HIGH);    
 }
 //--------------------------------------------    SETUP ENDS    --------------------------------------------
@@ -94,7 +100,7 @@ void setup() {
 void loop() {
     if(initial==1){
         Spark.connect();
-        initial=0;
+        initial=2;
     }
     //First check hard_state
     SD_read();
@@ -171,7 +177,10 @@ void WiFi_sd(){
     //digitalWrite(A0,HIGH);
     
     WiFi.on();
+    digitalWrite(D7,HIGH);
+    WiFi.clearCredentials();
     WiFi.setCredentials(name,pass);
+    digitalWrite(D7,LOW);
     Spark.connect();
     
     //digitalWrite(A0,LOW);    
