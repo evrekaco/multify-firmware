@@ -14,7 +14,7 @@ int initial=0;
 int one_turn=20;
 int speed=1000;
 
-long int hard_state=0;
+long int hard_state_temp, hard_state=0;
 int hard_state_int[6]={0,0,0,0,0,0};
 char hard_state_read[6]={0,0,0,0,0,0};
 int server_state=0;
@@ -308,6 +308,13 @@ int Change_state(String command)
     hard_state=atoi(command.c_str());
     SD_write(hard_state);
     Serial.println(hard_state);
+    if(server_state>hard_state){
+        hard_state_temp=hard_state;
+        for(int i=5;i>=0;i--){
+            hard_state_int[i]=hard_state_temp%10;
+            hard_state_temp=hard_state_temp/10;
+        }         
+    }
     return 1;
 }
 //--------------------------------------------    CHANGE_STATE ENDS    --------------------------------------------
