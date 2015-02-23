@@ -136,7 +136,7 @@ void loop() {
 
 //--------------------------------------------    WIFI_SD BEGINS    --------------------------------------------
 void WiFi_sd(){
-    myFile = SD.open("ssid.txt");
+    myFile = SD.open("internet.txt");
     
     i = 0;
     run = 1;
