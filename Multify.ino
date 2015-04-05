@@ -1,6 +1,6 @@
-// WiFi credentials added
-// Auto Device ID added
-// Positive turn tested
+//  Multifu Firmware Code
+//  Created and Developed by EVREKA LTD. STI.
+//  24.02.2015
 
 // This #include statement was automatically added by the Spark IDE.
 #include "sd-card-library/sd-card-library.h"
@@ -37,7 +37,7 @@ const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
 
-byte server[] = { 160, 153, 72, 200 }; //multify server ip address
+byte server[] = { 46, 101, 55, 98 }; //multify server ip address - digital ocean
 
 /**
 * Declaring the variables.
@@ -198,9 +198,11 @@ void Server_Check(){
     Serial.println("Application>\tStart of HttpRequest.");
     // Request path and body can be set at runtime or at setup.
     request.hostname = "multify.co";
-    request.ip=server;
+//    request.ip=server;
     request.port = 80;
-    request.path = "/adminMultify/webservice.php?method=foursquare&device_id="+myID+"&format=html"; //Spark No: 2
+//    request.path = "/adminMultify/webservice.php?method=foursquare&device_id="+myID+"&format=html";
+    request.path = "/get_device_data_raw/"+myID+"/";
+    
 
     // The library also supports sending a body with your request:
     //request.body = "{\"key\":\"value\"}";
@@ -461,7 +463,7 @@ void Equalizer(int hrd_st, int srv_st){
             Serial.print("th Motor will turn by ");
             Serial.println(turn);
             
-            //Move_motor(j,one_turn*10);
+            Move_motor(j,one_turn*10);
             
             //CLASSICAL TURN
             for(turn;turn>0;turn--){
@@ -475,13 +477,13 @@ void Equalizer(int hrd_st, int srv_st){
             //EXTRA TURN
             if(digit_turn[6-j] + hard_state_int[6-j] > 9){
                 Serial.println("Ekstra move for next motor!");
-                Move_motor(j+1,one_turn);
+                Move_motor(j+1,11*one_turn);
                 Stop_motor(j+1);
 
                 //EXTRA LOOK FOR EXTRA TURN
                 for(int k=0; k<digit-j; k++){
                     if(hard_state_int[5-j-k]==9){
-                        Move_motor(j+k+2,one_turn);
+                        Move_motor(j+k+2,11*one_turn);
                         Stop_motor(j+k+2);
                     }
                     else
