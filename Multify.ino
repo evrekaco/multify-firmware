@@ -37,7 +37,7 @@ const uint8_t mosiPin = A5;
 const uint8_t misoPin = A4;
 const uint8_t clockPin = A3;
 
-byte server[] = { 46, 101, 55, 98 }; //multify server ip address - digital ocean
+byte server[] = { 46, 101, 55, 98 }; //multify server ip address
 
 /**
 * Declaring the variables.
@@ -463,7 +463,7 @@ void Equalizer(int hrd_st, int srv_st){
             Serial.print("th Motor will turn by ");
             Serial.println(turn);
             
-            Move_motor(j,one_turn*10);
+            //Move_motor(j,10*one_turn);
             
             //CLASSICAL TURN
             for(turn;turn>0;turn--){
@@ -477,13 +477,13 @@ void Equalizer(int hrd_st, int srv_st){
             //EXTRA TURN
             if(digit_turn[6-j] + hard_state_int[6-j] > 9){
                 Serial.println("Ekstra move for next motor!");
-                Move_motor(j+1,11*one_turn);
+                Move_motor(j+1,one_turn);
                 Stop_motor(j+1);
 
                 //EXTRA LOOK FOR EXTRA TURN
                 for(int k=0; k<digit-j; k++){
                     if(hard_state_int[5-j-k]==9){
-                        Move_motor(j+k+2,11*one_turn);
+                        Move_motor(j+k+2,one_turn);
                         Stop_motor(j+k+2);
                     }
                     else
