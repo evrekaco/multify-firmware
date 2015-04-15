@@ -1,0 +1,16 @@
+﻿#manage-account-wrapper .editor-field {
+    display: block;
+}
+
+#manage-account-wrapper input[type="submit"] {
+    margin: 0;
+}
+
+#manage-account-wrapper .ajax-status {
+    display: inline;
+}
+
+#account-ajax-gif {
+    display: none;
+    vertical-align: bottom;
+}

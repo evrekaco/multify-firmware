@@ -1,0 +1,44 @@
+﻿@model CounterWebSite.Models.SubscriptionDetails
+
+@{
+    ViewBag.Title = "Subscription Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+    <legend>Subscription Details</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @if(Model.hasAccount)
+        {
+            @Html.ActionLink(Model.UserName, "Details", "Users", routeValues: new { id = Model.UserId }, htmlAttributes: null)
+        }
+        else
+        {
+            @:--
+        }
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubscriptionType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubscriptionType, new { Title = Model.SubscriptionTypeDescription })
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

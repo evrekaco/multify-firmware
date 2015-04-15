@@ -1,0 +1,58 @@
+﻿.title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.counter-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 600px;
+}
+
+.counter-wrapper .counter-image {
+    width: 100%;
+}
+
+.counter-wrapper .number {
+    position: absolute;
+    top: 300px;
+    width: 70px;
+    height: 90px;
+    text-align: center;
+    line-height: 90px;
+    color: white;
+    font-size: 50px;
+}
+
+/*.counter-wrapper .number span {
+    position: absolute;
+    top: 50%;
+}*/
+
+.counter-wrapper .number.x {
+    left: 500px;
+}
+
+.counter-wrapper .number.xx {
+    left: 405px;
+}
+
+.counter-wrapper .number.xxx {
+    left: 310px;
+}
+
+.counter-wrapper .number.xxxx {
+    left: 217px;
+}
+
+.counter-wrapper .number.xxxxx {
+    left: 123px;
+}
+
+.counter-wrapper .number.xxxxxx {
+    left: 30px;
+}
+
+#select-form {
+    margin-bottom: 15px;
+}

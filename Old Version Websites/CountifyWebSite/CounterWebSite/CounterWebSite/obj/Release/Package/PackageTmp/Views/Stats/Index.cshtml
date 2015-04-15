@@ -1,0 +1,97 @@
+﻿@model CounterWebSite.Models.StatsModel
+
+@{
+    ViewBag.Title = String.Format("{0} - {1}", StatStrings.Dashboard, Model.venueName);
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqPlot")
+    @Scripts.Render("~/bundles/stats/index")
+    @Scripts.Render("~/bundles/blockUI")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Scripts/jqPlot/plugins/jqplot.dateAxisRenderer.js"></script>
+
+}
+
+@section Styles {
+    @Styles.Render("~/Content/jqPlot")
+    @Styles.Render("~/Content/stats/index")
+}
+
+<h1 class="title">@Model.venueName</h1>
+
+<div class="counter-wrapper">
+    <img class="counter-image" src="@Url.Content("~/Images/counter-outline.jpg")" />
+    <div class="number xxxxxx">@Model.TotalCheckinsString[0]</div>
+    <div class="number xxxxx">@Model.TotalCheckinsString[1]</div>
+    <div class="number xxxx">@Model.TotalCheckinsString[2]</div>
+    <div class="number xxx">@Model.TotalCheckinsString[3]</div>
+    <div class="number xx">@Model.TotalCheckinsString[4]</div>
+    <div class="number x">@Model.TotalCheckinsString[5]</div>
+</div>
+
+@if (Model.managedVenues.Count() > 1)
+{
+    using (Html.BeginForm("Index", "Stats", FormMethod.Get, new { id = "select-form" }))
+    {
+        <span>@StatStrings.SelectVenueText</span>
+        @Html.DropDownListFor(model => model.venueId, Model.managedVenues);
+    <input type="submit" value="@StatStrings.Select" />
+    }
+}
+
+<p>@StatStrings.ChartDescription</p>
+
+<div id="chartdiv" style="margin: 0 auto;height:400px;width:300px; "></div>
+
+<div id="testContainer">
+    @{ Html.RenderAction("Test", "Push", new { id = Model.venueId }); }
+</div>
+
+@if (Model.Checkins.Count > 0)
+{
+
+    <p>@VenueStrings.CheckinListDescription</p>
+
+    //TODO: use the venue checkins partial view for this
+    @*@{ Html.RenderPartial("VenueCheckins", Model.Checkins); }*@
+
+    <table>
+        <tr>
+            <th>
+                @VenueStrings.CheckinNumber
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Checkins.FirstOrDefault().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Checkins.FirstOrDefault().CheckinTime)
+            </th>
+            <th></th>
+        </tr>
+
+        @for (int i = 0; i < Model.Checkins.Count; i++)
+        {
+            <tr>
+                <td>
+                    @(Model.TotalCheckins - i)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Checkins[i].UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Checkins[i].CheckinTime)
+                </td>
+            </tr>
+        }
+    </table>
+
+    <span>@String.Format(VenueStrings.OtherCheckins, Model.UntrackedCheckins)</span>
+}
+
+<script>
+    CounterValue = @Model.TotalCheckins;
+    chartData = @Model.ChartDataString;
+</script>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="delete_confirm" xml:space="preserve">
+    <value>Hesabınızı silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="delete_confirmTitle" xml:space="preserve">
+    <value>Hesabı Sil</value>
+  </data>
+  <data name="delete_success" xml:space="preserve">
+    <value>Hesap başarıyla silindi.</value>
+  </data>
+  <data name="login_associateMessage" xml:space="preserve">
+    <value>You've successfully authenticated with {0}. Please enter a user name for this site below and click the Confirm button to finish logging in.</value>
+  </data>
+  <data name="login_associateTitle" xml:space="preserve">
+    <value> {0} hesabınızı bağlayın.</value>
+  </data>
+  <data name="login_createSuccess" xml:space="preserve">
+    <value>Hesap başarıyla oluşturuldu.</value>
+  </data>
+  <data name="login_emailExists" xml:space="preserve">
+    <value>Bu e-posta adresi zaten kayıtlıdır. Lütfen başka bir e-posta adresi kullanın veya varolan hesabınızı kullanın.</value>
+  </data>
+  <data name="login_failure" xml:space="preserve">
+    <value>Servisle başarısız giriş.</value>
+  </data>
+  <data name="login_failureTitle" xml:space="preserve">
+    <value>Başarısız Giriş</value>
+  </data>
+  <data name="login_notManager" xml:space="preserve">
+    <value>Seçilen hesap hiçbir işletme yönetmiyor.</value>
+  </data>
+  <data name="login_registerTitle" xml:space="preserve">
+    <value>Kaydol</value>
+  </data>
+  <data name="login_usernameExists" xml:space="preserve">
+    <value>Bu kullanıcı ismi zaten var. Lütfen başka bir kullanıcı ismi girin</value>
+  </data>
+  <data name="Register_EmailAddress" xml:space="preserve">
+    <value>E-Posta Adresi</value>
+  </data>
+  <data name="Register_EmailAddressInvalid" xml:space="preserve">
+    <value>Lütfen geçerli bir e-posta adresi girin</value>
+  </data>
+  <data name="Register_EmailAddress_Required" xml:space="preserve">
+    <value>Lütfen bir e-posta adresi girin</value>
+  </data>
+  <data name="Register_ManagedVenues" xml:space="preserve">
+    <value>Bu hesap tarafından yönetilen işletmeler</value>
+  </data>
+  <data name="Register_PhoneNumber" xml:space="preserve">
+    <value>Telefon numarası</value>
+  </data>
+  <data name="Register_PhoneNumberInvalid" xml:space="preserve">
+    <value>Lütfen geçerli bir telefon numarası girin</value>
+  </data>
+  <data name="Register_UserName" xml:space="preserve">
+    <value>Kullanıcı İsmi</value>
+  </data>
+  <data name="Register_UserName_Required" xml:space="preserve">
+    <value>Lütfen bir kullanıcı ismi girin</value>
+  </data>
+  <data name="update_emailExists" xml:space="preserve">
+    <value>Bu e-posta adresi zaten kayıtlıdır. Lütfen başka bir e-posta adresi kullanın veya varolan hesabınızı kullanın.</value>
+  </data>
+  <data name="update_successMessage" xml:space="preserve">
+    <value>Hesap başarıyla güncellendi</value>
+  </data>
+  <data name="login_legend" xml:space="preserve">
+    <value>Foursquare kullanarak giriş yapın</value>
+  </data>
+  <data name="login_message" xml:space="preserve">
+    <value>{0} hesabınızı kullanarak giriş yapın</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>Giriş yap</value>
+  </data>
+  <data name="login_title2" xml:space="preserve">
+    <value>{0} ile giriş yap</value>
+  </data>
+  <data name="manage_delete" xml:space="preserve">
+    <value>Hesabı Sil</value>
+  </data>
+  <data name="manage_deleteTitle" xml:space="preserve">
+    <value>Hesabı Sil</value>
+  </data>
+  <data name="manage_detailsTitle" xml:space="preserve">
+    <value>Hesap Detaylarını Yönet</value>
+  </data>
+  <data name="manage_message" xml:space="preserve">
+    <value>Giriş yapmış olan hesap</value>
+  </data>
+  <data name="manage_subsTitle" xml:space="preserve">
+    <value>Manage Subscriptions</value>
+  </data>
+  <data name="manage_title" xml:space="preserve">
+    <value>Hesabı yönet</value>
+  </data>
+  <data name="manage_update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="manage_viewFsq" xml:space="preserve">
+    <value>Foursquare'da göster</value>
+  </data>
+  <data name="mistake_instructions1" xml:space="preserve">
+    <value>Bu hatayı düzeltmek için ,aşağıdaki butona basıp Foursquare'a gidin ve işletme sahibi olan bir hesapla giriş yapın.</value>
+  </data>
+  <data name="mistake_instructions2" xml:space="preserve">
+    <value>Ayrıca işletme hesabınız yerine kişisel hesabınızla giriş yaptığınızdan emin olun.</value>
+  </data>
+  <data name="mistake_instructions3" xml:space="preserve">
+    <value>Eğer hala bu hatayı görüyorsanız , işletme sahibi olarak kayıtlı olmadığınız anlamına gelir. Daha fazla bilgi için lütfen bu linke göz atın:</value>
+  </data>
+  <data name="mistake_title" xml:space="preserve">
+    <value>Giriş Hatası</value>
+  </data>
+  <data name="mistake_title2" xml:space="preserve">
+    <value>Bir Yönetici Hesabıyla Giriş Yapmalısınız.</value>
+  </data>
+  <data name="loginpartial_hello" xml:space="preserve">
+    <value>Merhaba</value>
+  </data>
+  <data name="loginpartial_login" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="loginpartial_logoff" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+</root>

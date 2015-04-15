@@ -1,0 +1,28 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <text>
+        @(AccountStrings.loginpartial_hello), @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">@AccountStrings.loginpartial_logoff</a>
+        }
+    </text>
+}
+else
+{
+    AuthenticationClientData provider = OAuthWebSecurity.GetOAuthClientData("Foursquare");
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <a id="loginLink" href="javascript:document.getElementById('loginForm').submit()">@AccountStrings.loginpartial_login</a>
+        @*<button id="loginLink" type="submit" name="provider" value="@provider.DisplayName" title="Log in using your @provider.DisplayName account">Log In</button>*@
+    }
+
+    @*
+    <ul>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+    *@
+}

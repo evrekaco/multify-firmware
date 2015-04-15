@@ -1,0 +1,177 @@
+﻿/* Main Layout */
+#main-img .slides-pagination {
+    margin-bottom: 10px;
+}
+
+ul#menu li a.siparis {
+    background-color: #DD5444;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 7px 15px;
+    width: auto;
+}
+
+.video-container {
+    width: 100%;
+    margin: 15px auto;
+}
+
+    .video-container > div {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        padding-top: 35px;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.content {
+    text-align: center;
+}
+
+    .content .info {
+        display: table;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 75px;
+        border-collapse: separate;
+        border-spacing: 45px;
+    }
+
+        .content .info section {
+            display: table-row;
+            width: 100%;
+        }
+
+            .content .info section div,
+            .content .info section span {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .content .info section span {
+                width: 40%;
+                margin: 0 auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-align: left;
+                font-size: 1.5em;
+            }
+
+            .content .info section div {
+                width: 60%;
+            }
+
+                .content .info section div img {
+                    margin: 0 auto;
+                }
+
+            .content .info section.section-1 img {
+                width: 100%;
+            }
+
+            .content .info section.section-2 img {
+                width: 50%;
+            }
+
+            .content .info section.section-3 img {
+                width: 50%;
+            }
+
+            .content .info section.section-4 img {
+                width: 45%;
+            }
+
+    .content .how-works {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 75px;
+    }
+
+        .content .how-works .col {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+            .content .how-works .col.side {
+                width: 30%;
+            }
+
+            .content .how-works .col.middle {
+                width: 38%;
+            }
+
+            .content .how-works .col.side > div {
+                padding: 15px;
+            }
+
+            .content .how-works .col img {
+                width: 100%;
+            }
+
+            .content .how-works .col h2,
+            .content .how-works .col h4 {
+                color: black;
+            }
+
+            .content .how-works .col hr {
+                width: 65%;
+                margin: 0 auto 5px;
+            }
+
+            .content .how-works .col p {
+                color: #6D6E72;
+            }
+
+    .content .measurements {
+        width: 70%;
+        max-height: 80%;
+        margin-bottom: 50px;
+    }
+
+#order-container hr {
+    margin: 20px auto;
+}
+
+#order-container button {
+    font-size: 4.5em;
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin: 25px 0;
+}
+
+#order-form-container {
+    display: none;
+}
+
+    #order-form-container input[type='submit'] {
+        margin: 0;
+        margin-left: 5px;
+    }
+
+    #order-form-container .validation-summary-errors li {
+        list-style-type: none;
+    }
+
+#order-load-gif {
+    float: right;
+    display: none;
+}
+
+#subscribe-form-container .editor-label {
+    width: auto;
+}
+
+#subscribe-form-container .editor-field input {
+    width: 30%;
+}

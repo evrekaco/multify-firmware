@@ -1,0 +1,74 @@
+﻿@*@using CounterWebSite.Helpers*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Countify - @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/shared")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    @RenderSection("PreHeader", required: false)
+
+    <header>
+        <div class='stickytoolbar-placeholder'>
+            <div class='stickytoolbar-bar'>
+                <div class="toolbar-wrapper">
+                    <div class="float-left">
+                        <a href="@Url.Action("Index", "Home")">
+                            <img class="site-logo" src="@Url.Content("~/Images/countify_logo.png")" />
+                        </a>
+                    </div>
+
+                    <div class="float-right">
+                        <div class="nav-container">
+                            @if (IsSectionDefined("Nav"))
+                            {
+                                @RenderSection("Nav");
+                            }
+                            else
+                            {
+                                @Html.Partial("_NavPartial")
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @* Display status message if one exists *@
+        @Html.StatusMessage("content-wrapper")
+        @*@if (TempData.ContainsKey(CounterWebSite.Controllers.BaseController.TempDataStatusKey))
+        {
+            <section class="status-message content-wrapper">
+                <p class="@TempData[CounterWebSite.Controllers.BaseController.TempDataStatusTypeKey]">
+                    @TempData[CounterWebSite.Controllers.BaseController.TempDataStatusKey]
+                </p>
+            </section>
+        }*@
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class='contact-buttons'>
+                <a href='https://www.facebook.com/pages/Countify/560008057445726' target="_blank"><img src="@Url.Content("~/Images/facebook_small.png")" /></a>
+                <a href='https://twitter.com/countifyproduct' target="_blank"><img src="@Url.Content("~/Images/twitter_small.png")" /></a>
+                @*<a href='mailto:akcoraberkay@gmail.com'><img src="@Url.Content("~/Images/email_small.png")" /></a>*@
+            </div>
+            <img class='footer-logo' src="@Url.Content("~/Images/countify_logo.png")" />
+            <p class="volteran">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@LayoutStrings.footer_a&nbsp;<a href="http://www.innovaction.co" target="_blank"><img src="@Url.Content("~/Images/innovaction-logo.png")" /></a>&nbsp;@LayoutStrings.footer_project</p>
+        </div>
+        <p class='copyright'>@LayoutStrings.footer_copyright</p>
+        <div style="clear:both;"></div>
+    </footer>
+</body>
+</html>

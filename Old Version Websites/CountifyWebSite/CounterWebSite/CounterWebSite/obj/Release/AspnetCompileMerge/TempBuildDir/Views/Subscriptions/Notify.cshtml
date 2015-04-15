@@ -1,0 +1,36 @@
+﻿@model CounterWebSite.Models.NotifySubscriptionModel
+
+@*TODO: AJAX form*@
+@using (Ajax.BeginForm(new AjaxOptions()
+    {
+        HttpMethod = "Post",
+        Url = Url.Action("Notify"),
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "subscribe-form-container",
+        OnBegin = "NotifySubscribeBegin",
+        OnFailure = "NotifySubscribeFailure",
+        //OnSuccess = "NotifySubscribeSuccess",
+        OnComplete = "NotifySubscribeComplete",
+    }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>@SubStrings.notify_message</p>
+    
+    <fieldset>
+        <legend>NotifySubscriptionModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <p>
+            <input type="submit" value="@SubStrings.notify_register" />
+        </p>
+    </fieldset>
+}

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = AccountStrings.mistake_title;
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@AccountStrings.mistake_title2</h2>
+</hgroup>
+
+<p>@AccountStrings.mistake_instructions1</p>
+<p>
+    @AccountStrings.mistake_instructions2
+    <img id="login-instruction" src="@Url.Content("~/Images/login-instruction.png")"/>
+</p>
+@*<p>@AccountStrings.mistake_instructions3 &nbsp;<a href="http://business.foursquare.com/listing/">http://business.foursquare.com/listing/</a></p>*@
+
+<form action="@Url.Action("Login", "Account")">
+    <input type="submit" value="Go to Foursquare" onclick="javascript: window.open('https://foursquare.com/accounts', '_blank');">
+</form>
+
+<style>
+    #login-instruction {
+        max-width: 500px;
+        margin: 10px 0;
+        border: 1px solid black;
+    }
+
+    input[type='submit'] {
+        font-size: 1.5em;
+    }
+
+</style>

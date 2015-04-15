@@ -1,0 +1,53 @@
+﻿@using CounterWebSite.Models
+@model UpdateAccountModel
+
+@using (Ajax.BeginForm(new AjaxOptions()
+    {
+        HttpMethod = "Post",
+        Url = Url.Action("Update"),
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "manage-account-wrapper",
+        LoadingElementId = "account-ajax-gif",
+        OnBegin = "UpdateAccountBegin",
+        OnFailure = "UpdateAccountFailure",
+        //OnSuccess = "UpdateAccountSuccess",
+        OnComplete = "UpdateAccountComplete",
+    }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UpdateAccountModel</legend>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmailAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EmailAddress)
+            @Html.ValidationMessageFor(model => model.EmailAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+
+        <div>
+            <input type="submit" value="Update Account Details" />
+            <img id="account-ajax-gif" src="@Url.Content("~/Images/ajax-loader.gif")" />
+            @Html.AjaxStatusMessage()
+        </div>
+    </fieldset>
+}

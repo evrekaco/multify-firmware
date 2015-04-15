@@ -1,0 +1,26 @@
+﻿@model string
+@{
+    bool started = (bool)ViewBag.started;
+    string value = (string)ViewBag.value;
+}
+
+<h3>@PushStrings.TestConsole</h3>
+<p>@PushStrings.TestDescription1</p>
+<p>@PushStrings.TestDescription2</p>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+        {
+            Url = Url.Action("Test", "Push"),
+            OnBegin = "TestFormBegin",
+            OnSuccess = "TestFormSuccess",
+            OnFailure = "TestFormFailure",
+            OnComplete = "TestFormComplete",
+            LoadingElementId = "test-loading-gif",
+        }))
+{
+    @Html.Hidden("id", Model)
+    @Html.TextBox("value", value)
+    @Html.Hidden("start", !started)
+    <input type="submit" style="background-color:@(started ? "#dd5444" : "green")" value="@(started ? "■" : "►")" />
+    <img id="test-loading-gif" style="display:none;vertical-align:middle;" src="@Url.Content("~/Images/ajax-loader.gif")" />
+}

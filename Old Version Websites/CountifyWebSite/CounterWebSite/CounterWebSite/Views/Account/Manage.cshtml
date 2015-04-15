@@ -1,0 +1,41 @@
+﻿@using CounterWebSite.Models
+@model ManageAcountModel
+
+@{
+    ViewBag.Title = AccountStrings.manage_title;
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/blockUI")
+    @Scripts.Render("~/bundles/account/manage")
+}
+
+@section Styles {
+    @Styles.Render("~/Content/account/manage")
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<p>@AccountStrings.manage_message &nbsp;<strong>@User.Identity.Name</strong>. (<a href="@Model.AccountLink" target="_blank">@AccountStrings.manage_viewFsq</a>)</p>
+
+<section>
+    <h3>@AccountStrings.manage_detailsTitle</h3>
+    <div id="manage-account-wrapper">
+        @{ Html.RenderAction(AccountStrings.manage_update, "Account"); }
+    </div>
+</section>
+
+<section>
+    <h3>@AccountStrings.manage_subsTitle</h3>
+    <div id="manage-subs-wrapper">
+        @{ Html.RenderAction(AccountStrings.manage_update, "Subscriptions"); }
+    </div>
+</section>
+
+<section>
+    <h3>@AccountStrings.manage_deleteTitle</h3>
+    <p>@Html.ActionLink(AccountStrings.manage_delete, "ConfirmDelete", "Account", null, new { @class = "button error", style = "font-size:inherit" })</p>
+</section>

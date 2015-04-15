@@ -1,0 +1,71 @@
+﻿@using CounterWebSite.Models
+@model UserDetails
+
+@{
+    ViewBag.Title = "User Details - " + Model.UserName;
+}
+
+<hgroup class="title">
+    <h1>User Details</h1>
+    <h2>@Model.UserName</h2>
+</hgroup>
+
+<fieldset>
+    <legend>User Details</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PhoneNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ManagedVenues)
+    </div>
+    <div class="display-field">
+        <ul>
+            @foreach (VenueDetails venue in Model.ManagedVenues)
+            {
+                <li>@Html.ActionLink(venue.Name, "Details", "Venue", new { id = venue.VenueId }, null)</li>
+            }
+        </ul>
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Subscriptions)
+    </div>
+    <div class="display-field">
+        <ul>
+            @foreach(SubscriptionDetails sub in Model.Subscriptions)
+            {
+                <li title="@sub.SubscriptionTypeDescription">@sub.SubscriptionType</li>
+            }
+        </ul>
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ExternalAccount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ExternalAccount)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

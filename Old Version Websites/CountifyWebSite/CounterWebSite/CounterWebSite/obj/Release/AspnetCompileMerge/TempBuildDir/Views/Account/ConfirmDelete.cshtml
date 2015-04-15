@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = AccountStrings.delete_confirmTitle;
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+
+
+<form action="@Url.Action("Delete", "Account")" method="post">
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <p>@AccountStrings.delete_confirm</p>
+        <input class="error" type="submit" value="DELETE">
+    </fieldset>
+</form>

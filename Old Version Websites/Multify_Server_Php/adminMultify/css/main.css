@@ -1,0 +1,23 @@
+.tab{
+    display: none;
+}
+.tab.current_tab{
+    display: inline;
+}
+
+.formButton{
+   margin: 10px;
+   float: inherit;
+}
+
+.formAlign{
+    text-align: right;
+    height: auto;
+}
+#tabs{
+    padding: 20px;
+}
+
+body{
+    background-color: #c3c3c3;
+}

@@ -1,0 +1,8 @@
+﻿@if (TempData.ContainsKey(CounterWebSite.Controllers.BaseController.TempDataStatusKey))
+{
+    <section class="status-message content-wrapper">
+        <p class="@TempData[CounterWebSite.Controllers.BaseController.TempDataStatusTypeKey]">
+            @TempData[CounterWebSite.Controllers.BaseController.TempDataStatusKey]
+        </p>
+    </section>
+}

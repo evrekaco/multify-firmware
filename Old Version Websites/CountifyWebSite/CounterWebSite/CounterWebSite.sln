@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CounterWebSite", "CounterWebSite\CounterWebSite.csproj", "{D88AB80E-55CA-48AA-A7CD-ED3CA5E8B559}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C} = {ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}
+		{88EBEB59-5EE5-4185-8440-9EE137568A99} = {88EBEB59-5EE5-4185-8440-9EE137568A99}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoursquareApi", "FoursquareOAuth\FoursquareApi.csproj", "{88EBEB59-5EE5-4185-8440-9EE137568A99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseContext", "DatabaseContext\DatabaseContext.csproj", "{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{C6A1FB65-5DB9-460F-82AD-36A8E1738A56}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://mark-monteiro.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CounterWebSite\\CounterWebSite.csproj
+		SccProjectName1 = CounterWebSite
+		SccLocalPath1 = CounterWebSite
+		SccProjectUniqueName2 = DatabaseContext\\DatabaseContext.csproj
+		SccProjectName2 = DatabaseContext
+		SccLocalPath2 = DatabaseContext
+		SccProjectUniqueName3 = FoursquareOAuth\\FoursquareApi.csproj
+		SccProjectName3 = FoursquareOAuth
+		SccLocalPath3 = FoursquareOAuth
+		SccProjectUniqueName4 = Resources\\Resources.csproj
+		SccProjectName4 = Resources
+		SccLocalPath4 = Resources
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D88AB80E-55CA-48AA-A7CD-ED3CA5E8B559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D88AB80E-55CA-48AA-A7CD-ED3CA5E8B559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D88AB80E-55CA-48AA-A7CD-ED3CA5E8B559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D88AB80E-55CA-48AA-A7CD-ED3CA5E8B559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88EBEB59-5EE5-4185-8440-9EE137568A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88EBEB59-5EE5-4185-8440-9EE137568A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88EBEB59-5EE5-4185-8440-9EE137568A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88EBEB59-5EE5-4185-8440-9EE137568A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A1FB65-5DB9-460F-82AD-36A8E1738A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A1FB65-5DB9-460F-82AD-36A8E1738A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A1FB65-5DB9-460F-82AD-36A8E1738A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A1FB65-5DB9-460F-82AD-36A8E1738A56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

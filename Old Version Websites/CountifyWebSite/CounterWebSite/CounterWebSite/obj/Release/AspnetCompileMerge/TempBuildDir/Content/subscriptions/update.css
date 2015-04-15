@@ -1,0 +1,12 @@
+﻿#manage-subs-wrapper input[type="submit"] {
+    margin: 0;
+}
+
+#manage-subs-wrapper .ajax-status {
+    display: inline;
+}
+
+#subscription-ajax-gif {
+    display: none;
+    vertical-align: bottom;
+}

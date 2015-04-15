@@ -1,0 +1,55 @@
+﻿@model CounterWebSite.Models.RegisterExternalLoginModel
+@{
+    ViewBag.Title = AccountStrings.login_registerTitle;
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@String.Format(AccountStrings.login_associateTitle, ViewBag.ProviderDisplayName)</h2>
+</hgroup>
+
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Association Form</legend>
+        <p>
+            @String.Format(AccountStrings.login_associateMessage, "<strong>" + ViewBag.ProviderDisplayName + "</strong>")
+        </p>
+        <ol>
+            <li class="venues">
+                @Html.LabelFor(m => m.ManagedVenues)
+                <ul>
+                    @foreach(string venueName in Model.ManagedVenues)
+                    {
+                        <li>@venueName</li>
+                    }
+                </ul>
+            </li>
+            <li class="name">
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li class="email">
+                @Html.LabelFor(m => m.EmailAddress)
+                @Html.TextBoxFor(m => m.EmailAddress)
+                @Html.ValidationMessageFor(m => m.EmailAddress)
+            </li>
+            <li class="phone">
+                @Html.LabelFor(m => m.PhoneNumber)
+                @Html.TextBoxFor(m => m.PhoneNumber)
+                @Html.ValidationMessageFor(m => m.PhoneNumber)
+            </li>
+        </ol>
+        @Html.HiddenFor(m => m.ExternalLoginData)
+        @Html.HiddenFor(m => m.AccessToken)
+        <input type="submit" value="Register" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

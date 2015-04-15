@@ -1,0 +1,86 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: murat
+ * Date: 25.01.2015
+ * Time: 19:04
+ */
+?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Multify | Client Login</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <style type="text/css">
+        input[type=text]
+        {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            width:200px;
+            min-height: 28px;
+            padding: 4px 20px 4px 8px;
+            font-size: 12px;
+            -moz-transition: all .2s linear;
+            -webkit-transition: all .2s linear;
+            transition: all .2s linear;
+        }
+        input[type=text]:focus
+        {
+            border-color: #51a7e8;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1),0 0 5px rgba(81,167,232,0.5);
+            outline: none;
+        }
+        input[type=password]
+        {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            width:200px;
+            min-height: 28px;
+            padding: 4px 20px 4px 8px;
+            font-size: 12px;
+            -moz-transition: all .2s linear;
+            -webkit-transition: all .2s linear;
+            transition: all .2s linear;
+        }
+        input[type=password]:focus
+        {
+            border-color: #51a7e8;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1),0 0 5px rgba(81,167,232,0.5);
+            outline: none;
+        }
+    </style>
+    <script>
+        $(function() {
+            $( "#tabs" ).tabs();
+        });
+    </script>
+</head>
+<body>
+<center><img src="img/multify_logo_original.png" style="height: 250px; margin-top: 50px;"/></center>
+<div id="tabs" style="width: 400px; margin: 20px auto;">
+    <div id="tabs-1" style="text-align: center;">
+        <form action="client_login.php" method="post">
+            <p><label>Kullanıcı Adı: </label>
+                <input id="email" name="email" type="text" placeholder="ex: multify" required /></p>
+            <p><label>Şifre: </label>
+            <input id="password" name="password" type="password" placeholder="ex: abcd123" required />
+            <input name="action" type="hidden" value="login" /></p>
+            <p><input type="submit" value="Login" /></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

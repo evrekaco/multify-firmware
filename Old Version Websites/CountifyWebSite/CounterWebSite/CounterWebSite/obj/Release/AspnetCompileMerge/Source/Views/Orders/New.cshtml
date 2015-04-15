@@ -1,0 +1,159 @@
+﻿@model CounterWebSite.Models.PreOrderModel
+
+<img class="site-logo" src="@Url.Content("Images/countify_logo.png")">
+
+@using (Ajax.BeginForm(new AjaxOptions()
+    {
+        HttpMethod = "Post",
+        Url = Url.Action("New"),
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "order-form-container",
+        LoadingElementId = "order-load-gif",
+        //LoadingElementDuration = 
+        OnBegin = "PreOrderFormSubmitBegin",
+        OnFailure = "PreOrderFormSubmitFailure",
+        //OnSuccess = "PreOrderFormSubmitSuccess",
+        OnComplete = "PreOrderFormSubmitComplete",
+    }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Pre-Order</legend>
+        <div class="left">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.BusinessName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BusinessName)
+                @Html.ValidationMessageFor(model => model.BusinessName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailAddress)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EmailAddress)
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PhoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Message)
+            </div>
+            <input class="hidden" />
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Message)
+                @Html.ValidationMessageFor(model => model.Message)
+            </div>
+
+            <p>
+                <input type="submit" value="@OrderStrings.new_submit" />
+                <img id="order-load-gif" src=@Url.Content("Images/ajax-loader.gif") style="float: right;">
+            </p>
+        </div>
+    </fieldset>
+}
+<style>
+    #order-form-container .site-logo {
+        width: 30%;
+    }
+
+    #order-form-container form {
+        display: table;
+        margin: 0 auto;
+    }
+
+        #order-form-container form fieldset {
+            display: table-row;
+        }
+
+    #order-form-container .left,
+    #order-form-container .right {
+        display: table-cell;
+        width: 50%;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    #order-form-container .editor-label,
+    #order-form-container .editor-label label {
+        text-align: left;
+    }
+
+    #order-form-container .left input {
+        width: 50%;
+    }
+
+    #order-form-container .left .editor-label {
+        width: 40%;
+    }
+
+    #order-form-container .left label {
+        width: 100%;
+    }
+
+    #order-form-container .right label {
+        display: block;
+    }
+
+    #order-form-container .right input.hidden {
+        visibility: hidden;
+        width: 1px;
+    }
+
+    #order-form-container .right textarea,
+    #order-form-container .right .editor-field {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #order-form-container input[type="submit"] {
+        float: right;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        SetTextAreaHeight();
+    });
+
+    function SetTextAreaHeight() {
+        var input = $("#order-form-container .left input").first();
+        var textArea = $("#order-form-container .right textarea");
+
+        //set the height of the message textarea to be the
+        //outerheight of the left 4 inputs, minus the top and bottom margins
+        textArea.height(input.outerHeight(true) * 4 -
+            parseInt(input.css("margin-top"), 10) -
+            parseInt(input.css("margin-bottom"), 10) -
+            parseInt(textArea.css("margin-top"), 10) -
+            parseInt(textArea.css("margin-bottom"), 10));
+    }
+</script>

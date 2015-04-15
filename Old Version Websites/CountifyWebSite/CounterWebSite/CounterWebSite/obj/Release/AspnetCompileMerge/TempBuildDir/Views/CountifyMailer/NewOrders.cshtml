@@ -1,0 +1,44 @@
+@using Mvc.Mailer
+@model CounterWebSite.Models.PreOrderEmail
+
+<hgroup class="title">
+    <h1>New Order</h1>
+    <h2>New Order From @Model.BusinessName</h2>
+</hgroup>
+
+@{ string detailLink = Url.Abs(Url.Action("Details", "Orders", new { id = Model.Id })); }
+
+<p>
+    A preorder has been placed for "@Model.BusinessName" by @Model.Name.
+    View on the contify website:<a href="@detailLink">@detailLink</a>
+</p>
+<fieldset>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.EmailAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmailAddress)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.PhoneNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Message)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Message)
+    </div>
+</fieldset>
+

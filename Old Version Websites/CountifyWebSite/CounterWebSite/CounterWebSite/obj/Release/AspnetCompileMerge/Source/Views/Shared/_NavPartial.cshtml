@@ -1,0 +1,21 @@
+﻿<section id="login">
+    @Html.Partial("_LoginPartial")
+</section>
+<nav>
+    <ul id="menu">
+        @if (User.IsInRole("Administrators"))
+        {
+            <li>@Html.ActionLink(LayoutStrings.nav_controlPanel, "Index", "Stats")</li>
+            <li>@Html.ActionLink(LayoutStrings.nav_users, "Index", "Users")</li>
+            <li>@Html.ActionLink(LayoutStrings.nav_venues, "Index", "Venues")</li>
+            
+            <li class="language">@Html.Partial("_LanguagePartial")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink(LayoutStrings.nav_home, "Index", "Home")</li>
+            <li>@Html.ActionLink(LayoutStrings.nav_controlPanel, "Index", "Stats")</li>
+            <li class="language">@Html.Partial("_LanguagePartial")</li>
+            }
+</ul>
+</nav>

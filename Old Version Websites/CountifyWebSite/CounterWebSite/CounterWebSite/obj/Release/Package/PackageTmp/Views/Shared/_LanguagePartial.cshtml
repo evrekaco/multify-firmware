@@ -1,0 +1,16 @@
+﻿@{
+    string returnUrl = Request.Url.AbsoluteUri;
+}
+
+@if (CultureHelper.GetCurrentCulture() == "en")
+{
+    <a href="@Url.Action("SetCulture", "Home", new { culture = "tr", returnUrl = returnUrl })">
+        <img src="@Url.Content("~/Images/flag-tr-flat.png")"/>
+    </a>
+}
+else
+{
+    <a href="@Url.Action("SetCulture", "Home", new { culture = "en", returnUrl = returnUrl })">
+        <img src="@Url.Content("~/Images/flag-en-flat.png")" />
+    </a>
+}

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ABAF5450-D1DB-4765-9211-8A9CA1E8DB4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DatabaseContext</RootNamespace>
+    <AssemblyName>DatabaseContext</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=2.2.20.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.20.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DatabaseModel.cs" />
+    <Compile Include="Migrations\201404141737568_Initial.cs" />
+    <Compile Include="Migrations\201404141737568_Initial.Designer.cs">
+      <DependentUpon>201404141737568_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404141842560_ExtraUserInfo.cs" />
+    <Compile Include="Migrations\201404141842560_ExtraUserInfo.Designer.cs">
+      <DependentUpon>201404141842560_ExtraUserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404151500073_UserAccessToken.cs" />
+    <Compile Include="Migrations\201404151500073_UserAccessToken.Designer.cs">
+      <DependentUpon>201404151500073_UserAccessToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404151503315_AddVenue.cs" />
+    <Compile Include="Migrations\201404151503315_AddVenue.Designer.cs">
+      <DependentUpon>201404151503315_AddVenue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404151833177_RequestLogging.cs" />
+    <Compile Include="Migrations\201404151833177_RequestLogging.Designer.cs">
+      <DependentUpon>201404151833177_RequestLogging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404191856544_VenueManagers.cs" />
+    <Compile Include="Migrations\201404191856544_VenueManagers.Designer.cs">
+      <DependentUpon>201404191856544_VenueManagers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404230953232_AddPushCheckins.cs" />
+    <Compile Include="Migrations\201404230953232_AddPushCheckins.Designer.cs">
+      <DependentUpon>201404230953232_AddPushCheckins.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404232325209_AddPreOrder.cs" />
+    <Compile Include="Migrations\201404232325209_AddPreOrder.Designer.cs">
+      <DependentUpon>201404232325209_AddPreOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404240117581_AddSubscriptions.cs" />
+    <Compile Include="Migrations\201404240117581_AddSubscriptions.Designer.cs">
+      <DependentUpon>201404240117581_AddSubscriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405032123220_SubscriptionAccountRequired.cs" />
+    <Compile Include="Migrations\201405032123220_SubscriptionAccountRequired.Designer.cs">
+      <DependentUpon>201405032123220_SubscriptionAccountRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405121448237_AccessTokenTable.cs" />
+    <Compile Include="Migrations\201405121448237_AccessTokenTable.Designer.cs">
+      <DependentUpon>201405121448237_AccessTokenTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404141737568_Initial.resx">
+      <DependentUpon>201404141737568_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404141842560_ExtraUserInfo.resx">
+      <DependentUpon>201404141842560_ExtraUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404151500073_UserAccessToken.resx">
+      <DependentUpon>201404151500073_UserAccessToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404151503315_AddVenue.resx">
+      <DependentUpon>201404151503315_AddVenue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404151833177_RequestLogging.resx">
+      <DependentUpon>201404151833177_RequestLogging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404191856544_VenueManagers.resx">
+      <DependentUpon>201404191856544_VenueManagers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404230953232_AddPushCheckins.resx">
+      <DependentUpon>201404230953232_AddPushCheckins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404232325209_AddPreOrder.resx">
+      <DependentUpon>201404232325209_AddPreOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404240117581_AddSubscriptions.resx">
+      <DependentUpon>201404240117581_AddSubscriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405032123220_SubscriptionAccountRequired.resx">
+      <DependentUpon>201405032123220_SubscriptionAccountRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405121448237_AccessTokenTable.resx">
+      <DependentUpon>201405121448237_AccessTokenTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FoursquareOAuth\FoursquareApi.csproj">
+      <Project>{88ebeb59-5ee5-4185-8440-9ee137568a99}</Project>
+      <Name>FoursquareApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

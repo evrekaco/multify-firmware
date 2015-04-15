@@ -1,0 +1,33 @@
+﻿@model CounterWebSite.Models.LoginModel
+
+@{
+    ViewBag.Title = AccountStrings.login_title;
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@String.Format(AccountStrings.login_title2, Model.FSqOAuthProvider.DisplayName)</h2>
+</hgroup>
+
+<section class="social" id="socialLoginForm">
+    @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset id="socialLoginList">
+            <legend>@AccountStrings.login_legend</legend>
+            <p>
+                <button type="submit" name="provider" value="@Model.FSqOAuthProvider.AuthenticationClient.ProviderName" title="@String.Format(AccountStrings.login_message, Model.FSqOAuthProvider.DisplayName)"></button>
+            </p>
+        </fieldset>
+    }
+</section>
+<style>
+    #socialLoginForm button[type="submit"] {
+        width: 300px;
+        height: 48px;
+        background: url('/Images/foursquare-connect-blue@2x.png');
+        background-repeat: no-repeat;
+        cursor: pointer;
+        border: none;
+    }
+</style>

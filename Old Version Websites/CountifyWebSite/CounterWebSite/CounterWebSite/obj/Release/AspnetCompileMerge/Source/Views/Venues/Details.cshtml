@@ -1,0 +1,46 @@
+﻿@model CounterWebSite.Models.VenueDetails
+
+@{
+    ViewBag.Title = "Venue Details" + Model.Name;
+}
+
+<hgroup class="title">
+    <h1>Venue Detail</h1>
+    <h2>@Model.Name</h2>
+</hgroup>
+
+<fieldset>
+    <legend>Venue Details</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Checkins)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Checkins)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastUpdated)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastUpdated)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.RecordedCheckins)
+    </div>
+    <div class="display-field">
+        @{ Html.RenderPartial("VenueCheckins", Model.RecordedCheckins); }
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

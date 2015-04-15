@@ -1,0 +1,21 @@
+# eclipse files
+.buildpath
+.project
+.settings
+
+# phpstorm files
+.idea
+
+# netbeans files
+nbproject/private
+
+# composer files
+composer.phar
+composer.lock
+
+# vendor libraries
+vendor/
+
+# phpunit files
+tests/phpunit.xml
+
