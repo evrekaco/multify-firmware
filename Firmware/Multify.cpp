@@ -436,6 +436,8 @@ void Stop_motors(){
 //  Evaluates and parses the difference of hard and server states
 //  Turns the motors to equalize both states
 void Equalizer(int hrd_st, int srv_st){
+    
+    Move_all();
     //Find the difference
     int difference = srv_st - hrd_st;
     //Parse the difference into digit_turn array
@@ -527,5 +529,15 @@ void Equalizer(int hrd_st, int srv_st){
     }
 }
 //--------------------------------------------    EQUALIZER ENDS    --------------------------------------------
+
+//--------------------------------------------    MOVEALL BEGINS    --------------------------------------------
+void Move_all(){
+    for(int i=6; i>0; i--){
+        Move_motor(i,10*one_turn);
+        Stop_motor(i);
+    }
+    Stop_motors();
+}
+//--------------------------------------------    MOVEALL ENDS    --------------------------------------------
 
 //--------------------------------------------    MULTIFY ENDS    --------------------------------------------
